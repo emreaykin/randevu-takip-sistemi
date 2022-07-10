@@ -1,0 +1,55 @@
+{
+  "posts": [
+    {
+      "title": "json-servaasser",
+      "author": "typicode",
+      "id": 2
+    },
+    {
+      "type": "APPLICATION_SUPPORT",
+      "email": "test@td.com",
+      "id": 3
+    },
+    [
+      {
+        "type": "APPLICATION_SUPPORT",
+        "email": "test@td.com"
+      }
+    ]
+  ],
+  "users": [
+    {
+      "type": "APPLICATION_SUPPORT",
+      "email": "tests@td.com",
+      "id": 1
+    },
+    {
+      "type": "APPLICATION_SUPPORT",
+      "email": "tests@td.com",
+      "id": 2
+    },
+    {
+      "type": "APPLICATION_SUPPORT",
+      "email": "tests@td.com",
+      "id": 3
+    }
+  ],
+  "profile": [
+    {
+      "type": "APPLICATION_SUPPORT",
+      "email": "test@td.com"
+    },
+    {
+      "type": "APPLICATION_SUPPORT",
+      "email": "test@td.com"
+    },
+    {
+      "type": "APPLICATION_SUPPORT",
+      "email": "test@td.com"
+    },
+    {
+      "type": "APPLICATION_SUPPORT",
+      "email": "test@td.com"
+    }
+  ]
+}
