@@ -1,59 +1,120 @@
+import { useEffect, useState } from "react";
 import "./Login.css";
+import "./Toogle.js";
+import {
+  getAuth,
+  signInWithEmailAndPassword,
+  onAuthStateChanged,
+  signOut,
+} from "firebase/auth";
+
+import "./Firebase.js";
 
 function Login() {
-  
+  const [loginEmail, setLoginEmail] = useState("");
+  const [loginPassword, setLoginPassword] = useState("");
+
+  const [user, setUser] = useState({});
+  const authentication = getAuth();
+
+  useEffect(() => {
+    onAuthStateChanged(authentication, (currentUser) => {
+      setUser(currentUser);
+    });
+  }, [authentication]);
+
+  const login = async () => {
+    try {
+      const user = await signInWithEmailAndPassword(
+        authentication,
+        loginEmail,
+        loginPassword
+      );
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+  const logout = async () => {
+    await signOut(authentication);
+  };
   return (
-    <div>
-      <div id="login-bg" class="container-fluid">
-        <div class="bg-img"></div>
-        <div class="bg-color"></div>
-      </div>
-
-      <div class="container" id="login">
-        <div class="row justify-content-center">
-          <div class="col-lg-8">
-            <div class="login">
-              <h1>Login</h1>
-
-              <form>
-                <div class="form-group">
-                  <input
-                    type="email"
-                    class="form-control"
-                    id="exampleInputEmail1"
-                    aria-describedby="emailHelp"
-                    placeholder="Enter email"
-                  ></input>
-                </div>
-                <div class="form-group">
-                  <input
-                    type="password"
-                    class="form-control"
-                    id="exampleInputPassword1"
-                    placeholder="Password"
-                  ></input>
-                </div>
-
-                <div class="form-check">
-                  <label class="switch">
-                    <input type="checkbox"></input>
-                    <span class="slider round"></span>
-                  </label>
-                  <label class="form-check-label" for="exampleCheck1">
-                    Remember me
-                  </label>
-
-                  <label class="forgot-password">
-                    <a href="#">Forgot Password?</a>
-                  </label>
-                </div>
-
-                <button class="btn btn-lg btn-block btn-success">
-                  <a href="dashboard">Forgot Password?</a>
-                </button>
-              </form>
+    <div className="form">
+      <div className="form-toggle"></div>
+      <div className="form-panel one">
+        <div className="form-header">
+          <h1>Account Login</h1>
+        </div>
+        <div className="form-content">
+          <form>
+            <div className="form-group">
+              <label htmlFor="username">Email</label>
+              <input
+                type="email"
+                id="#email"
+                name="email"
+                required="required"
+                onChange={(event) => {
+                  event.preventDefault();
+                  setLoginEmail(event.target.value);
+                }}
+              />
             </div>
+            <div className="form-group">
+              <label htmlFor="password">Password</label>
+              <input
+                type="password"
+                id="#password"
+                name="password"
+                required="required"
+                onChange={(event) => {
+                  event.preventDefault();
+                  setLoginPassword(event.target.value);
+                }}
+              />
+            </div>
+            <div className="form-group">
+              <label className="form-remember">
+                <input type="checkbox" />
+                Remember Me
+              </label>
+              <a className="form-recovery" href="#">
+                Forgot Password?
+              </a>
+            </div>
+          </form>
+          <div className="form-group">
+            <button onClick={login} style={{ marginBottom: "5px" }}>
+              Log In
+            </button>
+            <h4> User Logged In: {user?.email}</h4>
           </div>
+        </div>
+      </div>
+      <div className="form-panel two">
+        <div className="form-header">
+          <h1>Register Account</h1>
+        </div>
+        <div className="form-content">
+          <form>
+            <div className="form-group">
+              <label htmlFor="email">Email Address</label>
+              <input type="email" id="email" name="email" required="required" />
+            </div>
+            <div className="form-group">
+              <label htmlFor="password">Password</label>
+              <input
+                type="password"
+                id="password"
+                name="password"
+                required="required"
+              />
+            </div>
+
+            <div className="form-group">
+              <button type="submit">Register</button>
+            </div>
+          </form>
         </div>
       </div>
     </div>
